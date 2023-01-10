@@ -2,38 +2,41 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+      
     <h:head>
         <title>Liste des clients</title>
     </h:head>
     <h:body>
-        <h:dataTable value="#{customerBean.customers}"
-               var="item"  >
-      <h:column>
-         <f:facet name="header">
-             <h:outputText value="Id"/>
-         </f:facet>
-         <h:outputText value="#{item.customerId}"/>
-      </h:column>
-      <h:column>
-         <f:facet name="header">
-             <h:outputText value="Nom"/>
-         </f:facet>
-         <h:outputText value="#{item.name}"/>
-      </h:column>
-      <h:column>
-         <f:facet name="header">
-             <h:outputText value="Ville"/>
-         </f:facet>
-         <h:outputText value="#{item.city}"/>
-      </h:column>
-      <h:column>
-         <f:facet name="header">
-             <h:outputText value="Discount code"/>
-         </f:facet>
-         <h:outputText value="#{item.discount_code}"/>
-      </h:column>
-      
-  </h:dataTable>
+        <h:form>
+            <p:dataTable value="#{customerBean.customers}"
+                   var="item"  paginator="true" rows="10" >
+                <p:column sortBy="#{item.customerId}">
+                   <f:facet name="header">
+                       <h:outputText value="Id"/>
+                   </f:facet>
+                   <h:outputText value="#{item.customerId}"/>
+                </p:column>
+                <p:column sortBy="#{item.name}" filterBy="#{item.name}" filterMatchMode="contains">
+                   <f:facet name="header">
+                       <h:outputText value="Nom"/>
+                   </f:facet>
+                   <h:outputText value="#{item.name}"/>
+                </p:column>
+                <p:column sortBy="#{item.city}" filterBy="#{item.city}">
+                   <f:facet name="header">
+                       <h:outputText value="Ville"/>
+                   </f:facet>
+                   <h:outputText value="#{item.city}"/>
+                </p:column>
+                <p:column>
+                   <f:facet name="header">
+                       <h:outputText value="Discount Code"/>
+                   </f:facet>
+                   <h:outputText value="#{item.discountCode.discountCode} : #{item.discountCode.rate} %"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
     </h:body>
 </html>
